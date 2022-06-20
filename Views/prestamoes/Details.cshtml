@@ -1,0 +1,166 @@
+﻿@model Login_Test.Models.prestamo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>prestamo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_soli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_soli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_aprob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_aprob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_inicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_inicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capital)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capital)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.interes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.interes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_pago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_pago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.periodo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.periodo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cliente.cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cliente.cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fiador.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fiador.id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.garantia1.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.garantia1.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_pago1.nom_pago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_pago1.nom_pago)
+        </dd>
+
+    </dl>
+
+    <form action="Imprimir" method="post">
+        <input name="cliente" hidden value="1"/>
+    </form>
+
+    <h1>Tabla Amortizacion</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Cuota</th>
+                <th>Interes Mensual</th>
+                <th>Amortizacion Principal</th>
+                <th>Amortiza Total</th>
+                <th>Deuda Pendiente </th>
+            </tr>
+        </thead>
+
+        @{
+
+
+            double capital = Convert.ToDouble(Model.capital);
+            double interes = Convert.ToDouble(Model.interes) / 1200;
+            double plazo = Convert.ToDouble(Model.periodo);
+
+            double cuota = capital * (interes / (double)(1 - Math.Pow(1 + (double)interes, -plazo)));
+
+            double interes_mensual = 0;
+            double amortizacion = 0;
+            double amortizacion_total = 0;
+
+            int i = 1;
+
+            for (i = 1; i <= plazo; i++)
+            {
+                interes_mensual = Math.Round((interes * capital), 2);
+                capital = Math.Round((capital - cuota + interes_mensual), 2);
+
+                //Amortizaciones totales
+
+                amortizacion_total += Math.Round((cuota - interes_mensual), 2);
+                amortizacion = cuota - interes_mensual;
+
+                <tbody>
+                    <tr>
+                        <td>@i</td>
+                        <td>@Math.Round(cuota, MidpointRounding.AwayFromZero)</td>
+                        <td>@Math.Round(interes_mensual, MidpointRounding.AwayFromZero)</td>
+                        <td>@Math.Round(amortizacion, MidpointRounding.AwayFromZero)</td>
+                        <td>@Math.Round(amortizacion_total, MidpointRounding.AwayFromZero)</td>
+                        <td>@Math.Round(capital, MidpointRounding.AwayFromZero)</td>
+
+                    </tr>
+                </tbody>
+            }
+
+        }
+        </table>
+</div>
+<button>@Html.ActionLink("Reporte de Pretamos","Imprimir","prestamoes")</button>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id })
+    @Html.ActionLink("Back to List", "Index")
+</p>

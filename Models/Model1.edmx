@@ -1,0 +1,956 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="base1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ahorros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="int" />
+          <Property Name="capital" Type="bigint" />
+          <Property Name="interes" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="20" />
+          <Property Name="nombres" Type="varchar" MaxLength="90" />
+          <Property Name="apellidos" Type="varchar" MaxLength="90" />
+          <Property Name="direccion" Type="varchar" MaxLength="220" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="fiador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="int" />
+        </EntityType>
+        <EntityType Name="garantias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="tipo" Type="int" />
+          <Property Name="valor" Type="bigint" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="220" />
+        </EntityType>
+        <EntityType Name="inversiones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="int" />
+          <Property Name="capital" Type="bigint" />
+          <Property Name="interes" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="fecha_inicio" Type="date" />
+          <Property Name="fecha_pago" Type="date" />
+          <Property Name="num_cuenta" Type="varchar" MaxLength="30" />
+          <Property Name="tipo_cuenta" Type="varchar" MaxLength="50" />
+          <Property Name="nom_banco" Type="varchar" MaxLength="50" />
+          <Property Name="periodo" Type="int" />
+        </EntityType>
+        <EntityType Name="modulo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="operaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="operacion" Type="varchar" MaxLength="20" />
+          <Property Name="moduloid" Type="int" />
+        </EntityType>
+        <EntityType Name="pagos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_prestamo" Type="int" />
+          <Property Name="monto_pago" Type="bigint" />
+          <Property Name="modalida_pago" Type="int" />
+        </EntityType>
+        <EntityType Name="prestamos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="int" />
+          <Property Name="fecha_soli" Type="date" />
+          <Property Name="fecha_aprob" Type="date" />
+          <Property Name="fecha_inicio" Type="date" />
+          <Property Name="capital" Type="bigint" />
+          <Property Name="interes" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="fiador_ced" Type="int" />
+          <Property Name="fecha_pago" Type="date" />
+          <Property Name="tipo_pago" Type="int" />
+          <Property Name="garantia" Type="int" />
+          <Property Name="periodo" Type="int" />
+        </EntityType>
+        <EntityType Name="rol_operacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rolid" Type="int" />
+          <Property Name="operacionid" Type="int" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="rolid" />
+          </Key>
+          <Property Name="rolid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rol" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tipo_garantia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tipo_pago">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_pago" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="usuarioid" />
+          </Key>
+          <Property Name="usuarioid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="20" />
+          <Property Name="clave" Type="varchar" MaxLength="20" />
+          <Property Name="rol" Type="int" />
+        </EntityType>
+        <Association Name="FK__ahorros__cedula__2A4B4B5E">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="ahorros" Type="Self.ahorros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ahorros">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fiador__cedula__32E0915F">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="fiador" Type="Self.fiador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fiador">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__garantias__tipo__2F10007B">
+          <End Role="tipo_garantia" Type="Self.tipo_garantia" Multiplicity="0..1" />
+          <End Role="garantias" Type="Self.garantias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_garantia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="garantias">
+              <PropertyRef Name="tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__inversion__cedul__3B75D760">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="inversiones" Type="Self.inversiones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inversiones">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__operacion__modul__4AB81AF0">
+          <End Role="modulo" Type="Self.modulo" Multiplicity="0..1" />
+          <End Role="operaciones" Type="Self.operaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modulo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operaciones">
+              <PropertyRef Name="moduloid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pagos__cod_prest__73BA3083">
+          <End Role="prestamos" Type="Self.prestamos" Multiplicity="0..1" />
+          <End Role="pagos" Type="Self.pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prestamos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pagos">
+              <PropertyRef Name="cod_prestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pagos__modalida___74AE54BC">
+          <End Role="tipo_pago" Type="Self.tipo_pago" Multiplicity="0..1" />
+          <End Role="pagos" Type="Self.pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_pago">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pagos">
+              <PropertyRef Name="modalida_pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__cedul__35BCFE0A">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__fiado__36B12243">
+          <End Role="fiador" Type="Self.fiador" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fiador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="fiador_ced" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__garan__38996AB5">
+          <End Role="garantias" Type="Self.garantias" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="garantias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="garantia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__tipo___37A5467C">
+          <End Role="tipo_pago" Type="Self.tipo_pago" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_pago">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="tipo_pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rol_opera__opera__47DBAE45">
+          <End Role="operaciones" Type="Self.operaciones" Multiplicity="0..1" />
+          <End Role="rol_operacion" Type="Self.rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="operaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rol_operacion">
+              <PropertyRef Name="operacionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rol_opera__rolid__46E78A0C">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="rol_operacion" Type="Self.rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="rolid" />
+            </Principal>
+            <Dependent Role="rol_operacion">
+              <PropertyRef Name="rolid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuarios__rol__4222D4EF">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="rolid" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="base1ModelStoreContainer">
+          <EntitySet Name="ahorros" EntityType="Self.ahorros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fiador" EntityType="Self.fiador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="garantias" EntityType="Self.garantias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inversiones" EntityType="Self.inversiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="modulo" EntityType="Self.modulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="operaciones" EntityType="Self.operaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pagos" EntityType="Self.pagos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prestamos" EntityType="Self.prestamos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol_operacion" EntityType="Self.rol_operacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipo_garantia" EntityType="Self.tipo_garantia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipo_pago" EntityType="Self.tipo_pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ahorros__cedula__2A4B4B5E" Association="Self.FK__ahorros__cedula__2A4B4B5E">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="ahorros" EntitySet="ahorros" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fiador__cedula__32E0915F" Association="Self.FK__fiador__cedula__32E0915F">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="fiador" EntitySet="fiador" />
+          </AssociationSet>
+          <AssociationSet Name="FK__garantias__tipo__2F10007B" Association="Self.FK__garantias__tipo__2F10007B">
+            <End Role="tipo_garantia" EntitySet="tipo_garantia" />
+            <End Role="garantias" EntitySet="garantias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__inversion__cedul__3B75D760" Association="Self.FK__inversion__cedul__3B75D760">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="inversiones" EntitySet="inversiones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__operacion__modul__4AB81AF0" Association="Self.FK__operacion__modul__4AB81AF0">
+            <End Role="modulo" EntitySet="modulo" />
+            <End Role="operaciones" EntitySet="operaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pagos__cod_prest__73BA3083" Association="Self.FK__pagos__cod_prest__73BA3083">
+            <End Role="prestamos" EntitySet="prestamos" />
+            <End Role="pagos" EntitySet="pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pagos__modalida___74AE54BC" Association="Self.FK__pagos__modalida___74AE54BC">
+            <End Role="tipo_pago" EntitySet="tipo_pago" />
+            <End Role="pagos" EntitySet="pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__cedul__35BCFE0A" Association="Self.FK__prestamos__cedul__35BCFE0A">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__fiado__36B12243" Association="Self.FK__prestamos__fiado__36B12243">
+            <End Role="fiador" EntitySet="fiador" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__garan__38996AB5" Association="Self.FK__prestamos__garan__38996AB5">
+            <End Role="garantias" EntitySet="garantias" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__tipo___37A5467C" Association="Self.FK__prestamos__tipo___37A5467C">
+            <End Role="tipo_pago" EntitySet="tipo_pago" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rol_opera__opera__47DBAE45" Association="Self.FK__rol_opera__opera__47DBAE45">
+            <End Role="operaciones" EntitySet="operaciones" />
+            <End Role="rol_operacion" EntitySet="rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rol_opera__rolid__46E78A0C" Association="Self.FK__rol_opera__rolid__46E78A0C">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="rol_operacion" EntitySet="rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuarios__rol__4222D4EF" Association="Self.FK__usuarios__rol__4222D4EF">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="base1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ahorro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="Int32" />
+          <Property Name="capital" Type="Int64" />
+          <Property Name="interes" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__ahorros__cedula__2A4B4B5E" FromRole="ahorros" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nombres" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="220" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ahorros" Relationship="Self.FK__ahorros__cedula__2A4B4B5E" FromRole="clientes" ToRole="ahorros" />
+          <NavigationProperty Name="fiadors" Relationship="Self.FK__fiador__cedula__32E0915F" FromRole="clientes" ToRole="fiador" />
+          <NavigationProperty Name="inversiones" Relationship="Self.FK__inversion__cedul__3B75D760" FromRole="clientes" ToRole="inversiones" />
+          <NavigationProperty Name="prestamos" Relationship="Self.FK__prestamos__cedul__35BCFE0A" FromRole="clientes" ToRole="prestamos" />
+        </EntityType>
+        <EntityType Name="fiador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="Int32" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__fiador__cedula__32E0915F" FromRole="fiador" ToRole="clientes" />
+          <NavigationProperty Name="prestamos" Relationship="Self.FK__prestamos__fiado__36B12243" FromRole="fiador" ToRole="prestamos" />
+        </EntityType>
+        <EntityType Name="garantia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="Int32" />
+          <Property Name="valor" Type="Int64" />
+          <Property Name="ubicacion" Type="String" MaxLength="220" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tipo_garantia" Relationship="Self.FK__garantias__tipo__2F10007B" FromRole="garantias" ToRole="tipo_garantia" />
+          <NavigationProperty Name="prestamos" Relationship="Self.FK__prestamos__garan__38996AB5" FromRole="garantias" ToRole="prestamos" />
+        </EntityType>
+        <EntityType Name="inversione">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="Int32" />
+          <Property Name="capital" Type="Int64" />
+          <Property Name="interes" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="fecha_inicio" Type="DateTime" Precision="0" />
+          <Property Name="fecha_pago" Type="DateTime" Precision="0" />
+          <Property Name="num_cuenta" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_cuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nom_banco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__inversion__cedul__3B75D760" FromRole="inversiones" ToRole="clientes" />
+          <Property Name="periodo" Type="Int32" />
+        </EntityType>
+        <EntityType Name="modulo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="operaciones" Relationship="Self.FK__operacion__modul__4AB81AF0" FromRole="modulo" ToRole="operaciones" />
+        </EntityType>
+        <EntityType Name="operacione">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="operacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="moduloid" Type="Int32" />
+          <NavigationProperty Name="modulo" Relationship="Self.FK__operacion__modul__4AB81AF0" FromRole="operaciones" ToRole="modulo" />
+          <NavigationProperty Name="rol_operacion" Relationship="Self.FK__rol_opera__opera__47DBAE45" FromRole="operaciones" ToRole="rol_operacion" />
+        </EntityType>
+        <EntityType Name="prestamo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="Int32" />
+          <Property Name="fecha_soli" Type="DateTime" Precision="0" />
+          <Property Name="fecha_aprob" Type="DateTime" Precision="0" />
+          <Property Name="fecha_inicio" Type="DateTime" Precision="0" />
+          <Property Name="capital" Type="Int64" />
+          <Property Name="interes" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="fiador_ced" Type="Int32" />
+          <Property Name="fecha_pago" Type="DateTime" Precision="0" />
+          <Property Name="tipo_pago" Type="Int32" />
+          <Property Name="garantia" Type="Int32" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__prestamos__cedul__35BCFE0A" FromRole="prestamos" ToRole="clientes" />
+          <NavigationProperty Name="fiador" Relationship="Self.FK__prestamos__fiado__36B12243" FromRole="prestamos" ToRole="fiador" />
+          <NavigationProperty Name="garantia1" Relationship="Self.FK__prestamos__garan__38996AB5" FromRole="prestamos" ToRole="garantias" />
+          <NavigationProperty Name="tipo_pago1" Relationship="Self.FK__prestamos__tipo___37A5467C" FromRole="prestamos" ToRole="tipo_pago" />
+          <Property Name="periodo" Type="Int32" />
+          <NavigationProperty Name="pagos" Relationship="base1Model.FK__pagos__cod_prest__73BA3083" FromRole="prestamo" ToRole="pago" />
+        </EntityType>
+        <EntityType Name="rol_operacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rolid" Type="Int32" />
+          <Property Name="operacionid" Type="Int32" />
+          <NavigationProperty Name="operacione" Relationship="Self.FK__rol_opera__opera__47DBAE45" FromRole="rol_operacion" ToRole="operaciones" />
+          <NavigationProperty Name="role" Relationship="Self.FK__rol_opera__rolid__46E78A0C" FromRole="rol_operacion" ToRole="roles" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="rolid" />
+          </Key>
+          <Property Name="rolid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rol" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="rol_operacion" Relationship="Self.FK__rol_opera__rolid__46E78A0C" FromRole="roles" ToRole="rol_operacion" />
+          <NavigationProperty Name="usuarios" Relationship="Self.FK__usuarios__rol__4222D4EF" FromRole="roles" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="tipo_garantia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="garantias" Relationship="Self.FK__garantias__tipo__2F10007B" FromRole="tipo_garantia" ToRole="garantias" />
+        </EntityType>
+        <EntityType Name="tipo_pago">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_pago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="prestamos" Relationship="Self.FK__prestamos__tipo___37A5467C" FromRole="tipo_pago" ToRole="prestamos" />
+          <NavigationProperty Name="pagos" Relationship="base1Model.FK__pagos__modalida___74AE54BC" FromRole="tipo_pago" ToRole="pago" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="usuarioid" />
+          </Key>
+          <Property Name="usuarioid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="clave" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="rol" Type="Int32" />
+          <NavigationProperty Name="role" Relationship="Self.FK__usuarios__rol__4222D4EF" FromRole="usuarios" ToRole="roles" />
+        </EntityType>
+        <Association Name="FK__ahorros__cedula__2A4B4B5E">
+          <End Role="clientes" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="ahorros" Type="Self.ahorro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ahorros">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fiador__cedula__32E0915F">
+          <End Role="clientes" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="fiador" Type="Self.fiador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fiador">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__inversion__cedul__3B75D760">
+          <End Role="clientes" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="inversiones" Type="Self.inversione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inversiones">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__cedul__35BCFE0A">
+          <End Role="clientes" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__fiado__36B12243">
+          <End Role="fiador" Type="Self.fiador" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fiador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="fiador_ced" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__garantias__tipo__2F10007B">
+          <End Role="tipo_garantia" Type="Self.tipo_garantia" Multiplicity="0..1" />
+          <End Role="garantias" Type="Self.garantia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_garantia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="garantias">
+              <PropertyRef Name="tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__garan__38996AB5">
+          <End Role="garantias" Type="Self.garantia" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="garantias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="garantia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__operacion__modul__4AB81AF0">
+          <End Role="modulo" Type="Self.modulo" Multiplicity="0..1" />
+          <End Role="operaciones" Type="Self.operacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modulo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operaciones">
+              <PropertyRef Name="moduloid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rol_opera__opera__47DBAE45">
+          <End Role="operaciones" Type="Self.operacione" Multiplicity="0..1" />
+          <End Role="rol_operacion" Type="Self.rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="operaciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rol_operacion">
+              <PropertyRef Name="operacionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prestamos__tipo___37A5467C">
+          <End Role="tipo_pago" Type="Self.tipo_pago" Multiplicity="0..1" />
+          <End Role="prestamos" Type="Self.prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_pago">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prestamos">
+              <PropertyRef Name="tipo_pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__rol_opera__rolid__46E78A0C">
+          <End Role="roles" Type="Self.role" Multiplicity="0..1" />
+          <End Role="rol_operacion" Type="Self.rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="rolid" />
+            </Principal>
+            <Dependent Role="rol_operacion">
+              <PropertyRef Name="rolid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuarios__rol__4222D4EF">
+          <End Role="roles" Type="Self.role" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="rolid" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="base1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ahorros" EntityType="Self.ahorro" />
+          <EntitySet Name="clientes" EntityType="Self.cliente" />
+          <EntitySet Name="fiadors" EntityType="Self.fiador" />
+          <EntitySet Name="garantias" EntityType="Self.garantia" />
+          <EntitySet Name="inversiones" EntityType="Self.inversione" />
+          <EntitySet Name="moduloes" EntityType="Self.modulo" />
+          <EntitySet Name="operaciones" EntityType="Self.operacione" />
+          <EntitySet Name="prestamos" EntityType="Self.prestamo" />
+          <EntitySet Name="rol_operacion" EntityType="Self.rol_operacion" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="tipo_garantia" EntityType="Self.tipo_garantia" />
+          <EntitySet Name="tipo_pago" EntityType="Self.tipo_pago" />
+          <EntitySet Name="usuarios" EntityType="Self.usuario" />
+          <AssociationSet Name="FK__ahorros__cedula__2A4B4B5E" Association="Self.FK__ahorros__cedula__2A4B4B5E">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="ahorros" EntitySet="ahorros" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fiador__cedula__32E0915F" Association="Self.FK__fiador__cedula__32E0915F">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="fiador" EntitySet="fiadors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__inversion__cedul__3B75D760" Association="Self.FK__inversion__cedul__3B75D760">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="inversiones" EntitySet="inversiones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__cedul__35BCFE0A" Association="Self.FK__prestamos__cedul__35BCFE0A">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__fiado__36B12243" Association="Self.FK__prestamos__fiado__36B12243">
+            <End Role="fiador" EntitySet="fiadors" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__garantias__tipo__2F10007B" Association="Self.FK__garantias__tipo__2F10007B">
+            <End Role="tipo_garantia" EntitySet="tipo_garantia" />
+            <End Role="garantias" EntitySet="garantias" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__garan__38996AB5" Association="Self.FK__prestamos__garan__38996AB5">
+            <End Role="garantias" EntitySet="garantias" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__operacion__modul__4AB81AF0" Association="Self.FK__operacion__modul__4AB81AF0">
+            <End Role="modulo" EntitySet="moduloes" />
+            <End Role="operaciones" EntitySet="operaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rol_opera__opera__47DBAE45" Association="Self.FK__rol_opera__opera__47DBAE45">
+            <End Role="operaciones" EntitySet="operaciones" />
+            <End Role="rol_operacion" EntitySet="rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prestamos__tipo___37A5467C" Association="Self.FK__prestamos__tipo___37A5467C">
+            <End Role="tipo_pago" EntitySet="tipo_pago" />
+            <End Role="prestamos" EntitySet="prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__rol_opera__rolid__46E78A0C" Association="Self.FK__rol_opera__rolid__46E78A0C">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="rol_operacion" EntitySet="rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuarios__rol__4222D4EF" Association="Self.FK__usuarios__rol__4222D4EF">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <EntitySet Name="pagos" EntityType="base1Model.pago" />
+          <AssociationSet Name="FK__pagos__cod_prest__73BA3083" Association="base1Model.FK__pagos__cod_prest__73BA3083">
+            <End Role="prestamo" EntitySet="prestamos" />
+            <End Role="pago" EntitySet="pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pagos__modalida___74AE54BC" Association="base1Model.FK__pagos__modalida___74AE54BC">
+            <End Role="tipo_pago" EntitySet="tipo_pago" />
+            <End Role="pago" EntitySet="pagos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="pago">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_prestamo" Type="Int32" />
+          <Property Name="monto_pago" Type="Int64" />
+          <Property Name="modalida_pago" Type="Int32" />
+          <NavigationProperty Name="prestamo" Relationship="base1Model.FK__pagos__cod_prest__73BA3083" FromRole="pago" ToRole="prestamo" />
+          <NavigationProperty Name="tipo_pago" Relationship="base1Model.FK__pagos__modalida___74AE54BC" FromRole="pago" ToRole="tipo_pago" />
+        </EntityType>
+        <Association Name="FK__pagos__cod_prest__73BA3083">
+          <End Type="base1Model.prestamo" Role="prestamo" Multiplicity="0..1" />
+          <End Type="base1Model.pago" Role="pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prestamo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pago">
+              <PropertyRef Name="cod_prestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pagos__modalida___74AE54BC">
+          <End Type="base1Model.tipo_pago" Role="tipo_pago" Multiplicity="0..1" />
+          <End Type="base1Model.pago" Role="pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_pago">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pago">
+              <PropertyRef Name="modalida_pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="base1ModelStoreContainer" CdmEntityContainer="base1Entities">
+          <EntitySetMapping Name="ahorros">
+            <EntityTypeMapping TypeName="base1Model.ahorro">
+              <MappingFragment StoreEntitySet="ahorros">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="capital" ColumnName="capital" />
+                <ScalarProperty Name="interes" ColumnName="interes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="base1Model.cliente">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fiadors">
+            <EntityTypeMapping TypeName="base1Model.fiador">
+              <MappingFragment StoreEntitySet="fiador">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="garantias">
+            <EntityTypeMapping TypeName="base1Model.garantia">
+              <MappingFragment StoreEntitySet="garantias">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inversiones">
+            <EntityTypeMapping TypeName="base1Model.inversione">
+              <MappingFragment StoreEntitySet="inversiones">
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="capital" ColumnName="capital" />
+                <ScalarProperty Name="interes" ColumnName="interes" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="fecha_pago" ColumnName="fecha_pago" />
+                <ScalarProperty Name="num_cuenta" ColumnName="num_cuenta" />
+                <ScalarProperty Name="tipo_cuenta" ColumnName="tipo_cuenta" />
+                <ScalarProperty Name="nom_banco" ColumnName="nom_banco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="moduloes">
+            <EntityTypeMapping TypeName="base1Model.modulo">
+              <MappingFragment StoreEntitySet="modulo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operaciones">
+            <EntityTypeMapping TypeName="base1Model.operacione">
+              <MappingFragment StoreEntitySet="operaciones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="operacion" ColumnName="operacion" />
+                <ScalarProperty Name="moduloid" ColumnName="moduloid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prestamos">
+            <EntityTypeMapping TypeName="base1Model.prestamo">
+              <MappingFragment StoreEntitySet="prestamos">
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="fecha_soli" ColumnName="fecha_soli" />
+                <ScalarProperty Name="fecha_aprob" ColumnName="fecha_aprob" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="capital" ColumnName="capital" />
+                <ScalarProperty Name="interes" ColumnName="interes" />
+                <ScalarProperty Name="fiador_ced" ColumnName="fiador_ced" />
+                <ScalarProperty Name="fecha_pago" ColumnName="fecha_pago" />
+                <ScalarProperty Name="tipo_pago" ColumnName="tipo_pago" />
+                <ScalarProperty Name="garantia" ColumnName="garantia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol_operacion">
+            <EntityTypeMapping TypeName="base1Model.rol_operacion">
+              <MappingFragment StoreEntitySet="rol_operacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rolid" ColumnName="rolid" />
+                <ScalarProperty Name="operacionid" ColumnName="operacionid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="base1Model.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="rolid" ColumnName="rolid" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_garantia">
+            <EntityTypeMapping TypeName="base1Model.tipo_garantia">
+              <MappingFragment StoreEntitySet="tipo_garantia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_pago">
+            <EntityTypeMapping TypeName="base1Model.tipo_pago">
+              <MappingFragment StoreEntitySet="tipo_pago">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom_pago" ColumnName="nom_pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="base1Model.usuario">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pagos">
+            <EntityTypeMapping TypeName="base1Model.pago">
+              <MappingFragment StoreEntitySet="pagos">
+                <ScalarProperty Name="modalida_pago" ColumnName="modalida_pago" />
+                <ScalarProperty Name="monto_pago" ColumnName="monto_pago" />
+                <ScalarProperty Name="cod_prestamo" ColumnName="cod_prestamo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

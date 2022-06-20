@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<section class="w3l-login">
+    <div class="overlay">
+        <div class="wrapper">
+            <div class="form-section">
+                <h3>Login</h3>
+                <form action="Verificar" method="post" class="signin-form">
+                    <div class="form-input">
+                        <input type="text" name="usuario1" placeholder="Username" required="" autofocus>
+                    </div>
+                    <div class="form-input">
+                        <input type="password" name="clave" placeholder="Password" required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary theme-button mt-4">Log in</button>
+                    <div class="new-signup">
+                        <a href="~/Home/Contact" class="signuplink">Forgot username or password?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id='stars'></div>
+    <div id='stars2'></div>
+    <div id='stars3'></div>
+</section>
+

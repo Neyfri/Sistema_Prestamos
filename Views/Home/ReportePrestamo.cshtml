@@ -1,0 +1,47 @@
+﻿@model List<Login_Test.Models.prestamo>
+@{
+    Layout = null;
+}
+<!-- CSS only -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+
+<div class="row" style="border: 1px solid #000000">
+    <div class="col-xs-3">
+        Cedula
+    </div>
+    <div class="col-xs-3">
+        Capital
+    </div>
+    <div class="col-xs-3">
+        interes
+    </div>
+    <div class="col-xs-3">
+        Garantia
+    </div>
+    <div class="col-xs-3">
+        Periodo
+    </div>
+</div>
+
+@foreach (var oElement in Model)
+{
+<div class="row">
+    <div class="col-xs-3">
+        @oElement.cedula
+    </div>
+    <div class="col-xs-3">
+        @oElement.capital
+    </div>
+    <div class="col-xs-3">
+        @oElement.interes
+    </div>
+    <div class="col-xs-3">
+        @oElement.garantia
+    </div>
+    <div class="col-xs-3">
+        @oElement.periodo
+    </div>
+</div>
+}
+
+

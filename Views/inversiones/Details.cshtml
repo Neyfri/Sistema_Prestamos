@@ -1,0 +1,134 @@
+﻿@model Login_Test.Models.inversione
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>inversione</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.capital)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capital)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.interes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.interes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_inicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_inicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_pago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_pago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.num_cuenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num_cuenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_cuenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_cuenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_banco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_banco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cliente.cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cliente.cedula)
+        </dd>
+
+    </dl>
+</div>
+<h1>Tabla Amortizacion o Inversion</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Cuota Mensual</th>
+            <th>Interes por inversion</th>
+            <th>Ganacia Principal</th>
+            <th>Total Ganado</th>
+        </tr>
+    </thead>
+
+    @{
+
+
+        double capital = Convert.ToDouble(Model.capital);
+        double interes = Convert.ToDouble(Model.interes) / 1200;
+        double plazo = Convert.ToDouble(Model.periodo);
+
+        double cuota = capital * (interes / (double)(1 - Math.Pow(1 + (double)interes, -plazo)));
+
+        double interes_mensual = 0;
+        double ganancia = 0;
+        double interes_total = 0;
+
+        int i = 1;
+
+        for (i = 1; i <= plazo; i++)
+        {
+            interes_mensual = Math.Round((interes * capital), 2);
+            capital = Math.Round((capital + cuota + interes_mensual), 2);
+
+            //Amortizaciones totales
+
+            interes_total += Math.Round((cuota + interes_mensual), 2);
+            ganancia = cuota + interes_mensual;
+
+            <tbody>
+                <tr>
+                    <td>@i</td>
+                    <td>@Math.Round(cuota, MidpointRounding.AwayFromZero)</td>
+                    <td>@Math.Round(interes_mensual, MidpointRounding.AwayFromZero)</td>
+                    <td>@Math.Round(ganancia, MidpointRounding.AwayFromZero)</td>
+                    <td>@Math.Round(interes_total, MidpointRounding.AwayFromZero)</td>
+
+                </tr>
+            </tbody>
+        }
+
+    }
+</table>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Pagar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Pagar</h2>
+
+<div>
+    <form action="Pago" method="post">
+        <div>
+            <label>Codigo Del Prestamo</label>
+            <input name="cod_prestamo" type="number" />
+        </div>
+        <div>
+            <label>Monto a Pagar del Prestamo</label>
+            <input name="monto_pago" type="number" />
+        </div>
+        <div>
+            <button type="submit">Pagar</button>
+        </div>
+    </form>
+</div>

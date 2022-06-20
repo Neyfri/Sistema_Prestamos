@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Login_Test.Models.pago>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.monto_pago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prestamo.id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_pago.nom_pago)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.monto_pago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prestamo.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo_pago.nom_pago)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <button class="btn btn-default">@Html.ActionLink("Confirmar Pago","Pagar","pagos")</button>
+    </div>
+</div>
